@@ -25,7 +25,14 @@ const run = async () => {
   try {
     const toyTopiaDb = client.db("toyTopiaDb");
     const toyCollection = toyTopiaDb.collection("toys");
-    console.log("database connected");
+
+    // toys api
+    app.post("/toys", async (req, res) => {
+      res.json({ message: "post toy" });
+    });
+    app.get("/toys", async (req, res) => {
+      res.json({ message: "all toys" });
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close()
