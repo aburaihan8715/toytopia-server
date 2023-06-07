@@ -31,7 +31,10 @@ const run = async () => {
       res.json({ message: "post toy" });
     });
     app.get("/toys", async (req, res) => {
-      res.json({ message: "all toys" });
+      const query = {};
+      const cursor = toyCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
     });
   } finally {
     // Ensures that the client will close when you finish/error
