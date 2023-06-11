@@ -6,11 +6,11 @@
 
 ## packages have been used
 
--Express
--node js
--mongodb
--vercel
--dotenv
+- Express
+- node js
+- mongodb
+- vercel
+- dotenv
 
 ## live link
 
