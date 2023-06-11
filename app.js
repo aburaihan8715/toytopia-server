@@ -62,7 +62,19 @@ const run = async () => {
 
     // update toys
     app.put("/toys/:id", async (req, res) => {
-      res.json({ message: "coming....." });
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const data = req.body;
+      const options = { upsert: true };
+      const updatedData = {
+        $set: {
+          price: data.price,
+          quantity: data.quantity,
+          description: data.description,
+        },
+      };
+      const result = await toyCollection.updateOne(filter, updatedData, options);
+      res.send(result);
     });
   } finally {
     // Ensures that the client will close when you finish/error
