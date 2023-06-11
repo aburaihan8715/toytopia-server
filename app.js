@@ -26,14 +26,17 @@ const run = async () => {
     const toyTopiaDb = client.db("toyTopiaDb");
     const toyCollection = toyTopiaDb.collection("toys");
 
-    // toys api
+    /*===================================
+    toys api
+    ====================================*/
+    //  post toys
     app.post("/toys", async (req, res) => {
       const postedData = req.body;
       const result = await toyCollection.insertOne(postedData);
       console.log(result);
       res.send(result);
     });
-
+    // get all toys
     app.get("/toys", async (req, res) => {
       const query = {};
       const cursor = toyCollection.find(query);
@@ -41,11 +44,25 @@ const run = async () => {
       res.send(result);
     });
 
+    // get specific toys
     app.get("/toys/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await toyCollection.findOne(query);
       res.send(result);
+    });
+
+    // delete toys
+    app.delete("/toys/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await toyCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // update toys
+    app.put("/toys/:id", async (req, res) => {
+      res.json({ message: "coming....." });
     });
   } finally {
     // Ensures that the client will close when you finish/error
